@@ -1,0 +1,36 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6 text-center">
+
+        <div class="alert alert-success">
+
+            <h4>Registration Successful</h4>
+
+            <p>
+                Thank you {{ registration.name }} for registering.
+            </p>
+
+            <p>
+                Event: <strong>{{ event.title }}</strong>
+            </p>
+
+        </div>
+
+        <a href="/" class="btn btn-primary">
+            Back to Events
+        </a>
+
+        <p>Visit the check-in page when at the entrance of the event.</p>
+        <a href="{% url 'checkin' event.uuid %}" class="btn btn-success">
+            Check-in Link
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+.event-hero {
+    color: white;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.event-title {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.event-meta {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.badge-custom {
+    background: #0d6efd;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.form-card {
+    border: none;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.97);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    padding: 25px;
+}
+
+.form-title {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+input, select, textarea {
+    border-radius: 10px !important;
+    padding: 10px !important;
+}
+
+button {
+    border-radius: 12px !important;
+    padding: 12px !important;
+    font-weight: 600;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+</style>
+
+<div class="container">
+
+    <div class="event-hero fade-in">
+
+        <div class="event-title">
+            {{ event.title }}
+        </div>
+
+        <div class="event-meta">
+
+            {{ event.location }} <br>
+            {{ event.date }} <br><br>
+
+            <span class="badge-custom">
+                Capacity: {{ event.capacity }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- FORM -->
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <div class="form-card fade-in">
+
+                <div class="form-title">
+                    Register for this Event
+                </div>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-success w-100 mt-3">
+                        Register Now
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.querySelectorAll(".fade-in").forEach((el, i) => {
+
+        setTimeout(() => {
+            el.classList.add("show");
+        }, i * 200);
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

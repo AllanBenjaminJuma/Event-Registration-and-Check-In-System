@@ -1,0 +1,30 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+<div class="card shadow-sm p-4 text-center">
+
+    <h2 class="text-success">Registration Successful</h2>
+
+    <hr>
+
+    <p><strong>Name:</strong> {{ registration.name }}</p>
+    <p><strong>Event:</strong> {{ registration.event.title }}</p>
+
+    {% if registration.qr_code %}
+        <h4 class="mt-3">Your QR Code</h4>
+
+        <img src="{{ registration.qr_code.url }}" width="250" class="mt-2">
+
+        
+    {% else %}
+        
+    {% endif %}
+
+    <a href="/" class="btn btn-primary mt-3">
+        Back to Events
+    </a>
+
+</div>
+
+{% endblock %}
