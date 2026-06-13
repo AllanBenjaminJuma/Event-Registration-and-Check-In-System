@@ -107,6 +107,8 @@ Check-in is restricted to one time per user
 
 The system is designed for simplicity and real-time event use
 
+The events are fetched differently, past and upcoming
+
 ## Future Improvements
 
 * Admin dashboard for attendance analytics
@@ -114,3 +116,4 @@ The system is designed for simplicity and real-time event use
 * Email confirmation after registration
 * Login system for users
 * User Roles to manage events
+* Alerts during registration and event reminder

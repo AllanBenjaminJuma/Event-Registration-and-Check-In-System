@@ -8,14 +8,20 @@ from .forms import RegistrationForm
 from django.db import IntegrityError, transaction
 
 
-# Create your views here.
+# Fetch all events that are upcoming.
 def event_list(request):
 
-    events = Event.objects.all().order_by('date')
+    events = Event.objects.filter(date__gte=timezone.now()).order_by('date')
 
     return render(request, 'events/event_list.html', {'events': events, 'now': timezone.now()})
 
+# fetch all events that are in the past.
+def past_events(request):
+    events = Event.objects.filter(date__lt=timezone.now()).order_by('-date')
 
+    return render(request, 'events/past_events.html', {'events': events, 'now': timezone.now()})
+
+# view event details and handle registration
 
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -81,14 +87,14 @@ def checkin(request, event_uuid):
 
         else:
 
-            # Step 3: SAFE TRANSACTION (prevents double check-in bugs)
+            # SAFE TRANSACTION (prevents double check-in bugs)
             with transaction.atomic():
 
                 registration = Registration.objects.select_for_update().get(
                     id=registration.id
                 )
 
-                # Step 4: Already checked in
+                #  Already checked in
                 if registration.is_checked_in:
 
                     message = (
@@ -98,7 +104,7 @@ def checkin(request, event_uuid):
 
                 else:
 
-                    # Step 5: Mark check-in
+                    # Mark check-in
                     registration.is_checked_in = True
                     registration.checked_in_at = timezone.now()
                     registration.save()

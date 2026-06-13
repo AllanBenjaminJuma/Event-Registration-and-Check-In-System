@@ -2,14 +2,24 @@
 
 {% block content %}
 
-<h2 class="mb-4 event-title">
-    Available Events
-</h2>
 
-<div class="row">
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2 class="event-title m-0">
+        Available Events
+    </h2>
+
+    <a href="{% url 'past_events' %}"
+       class="btn btn-outline-light">
+        Past Events
+    </a>
+
+</div>
+
+<div class="row justify-content-center g-4">
 
     {% for event in events %}
-    <div class="col-md-4">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-4">
 
         <div class="card shadow-sm mb-3">
 
@@ -54,7 +64,7 @@
 
                 <!-- INFO TEXT -->
                 <small class="text-muted d-block mt-2">
-                    Already registered? Use Check-In at the venue.
+                    Already registered? Check-In at the venue.
                 </small>
 
             </div>

@@ -28,6 +28,7 @@ class Registration(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
+    signature = models.TextField(blank=True, null=True)
 
     facility_name = models.CharField(max_length=100, blank=True, null=True)
 
