@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html class="light" lang="en" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>EventOps Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#b9c6ef",
+                        "on-secondary-container": "#4e5b7f",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface-dim": "#d8dadc",
+                        "primary": "#1b479a",
+                        "surface-variant": "#e0e3e5",
+                        "secondary": "#515d82",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed": "#0c1a3b",
+                        "surface-container-low": "#f2f4f6",
+                        "error-container": "#ffdad6",
+                        "background": "#f7f9fb",
+                        "tertiary": "#3d4c62",
+                        "surface-container": "#eceef0",
+                        "secondary-container": "#c6d3fe",
+                        "inverse-primary": "#b1c5ff",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#d1e1fc",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-secondary-fixed-variant": "#394669",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#335baf",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "primary-container": "#3960b4",
+                        "outline": "#747783",
+                        "on-primary-fixed-variant": "#134295",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-primary-container": "#d7e0ff",
+                        "secondary-fixed": "#dae2ff",
+                        "surface-bright": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#54647b",
+                        "on-surface-variant": "#434652",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed": "#dae2ff",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c4c6d3",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .theme-gradient {
+            background: linear-gradient(135deg, #1b479a 0%, #000000 100%);
+        }
+
+        .theme-gradient-reverse {
+            background: linear-gradient(135deg, #000000 0%, #1b479a 100%);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        .stat-card {
+            transition: all 0.3s ease-out;
+            will-change: transform;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: #1b479a;
+            /* primary color */
+        }
+
+        .stat-card:hover {
+            background: linear-gradient(145deg, #ffffff, #f3f6ff);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface min-h-screen pb-20 md:pb-0">
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 w-full z-50 flex items-center justify-between px-4 h-16 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+        <div class="flex items-center gap-4">
+            <button
+                class="material-symbols-outlined text-primary dark:text-primary-fixed transition-colors duration-200 active:scale-95 p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-highest"
+                data-icon="menu">menu</button>
+            <h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">EventOps Admin
+            </h1>
+        </div>
+        <div class="flex items-center">
+            <div
+                class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+                <img alt="Admin Profile" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDot4as61UZWjyg8QEEUsJuh-aYYKWETK-bmlZ_wSPNv9NB7Be1jxVR9_6_V8SK-haYSMtje-nOLr1SzbDdqP-KVI05G65PMVJanZtQzeF-somGXZ0YBHADOifW1tGoFNx3wWcEN_0h3C18uscjmx4HwtS0wHgldVthBgx6lXYi3eBvNGrR8Cqu8NWtKS9oFMn6N0ZZ_qsTK6HnmweZ17swy8So7bo2afVxzLkNrxRET3NKZ7dP8s5cjQo-P92Mc1al9abNH2IxrmA">
+            </div>
+        </div>
+    </header>
+    <!-- Sidebar (Desktop Navigation) -->
+    <aside
+        class="hidden md:flex fixed inset-y-0 left-0 z-[60] flex flex-col py-6 h-full w-[280px] rounded-r-full bg-surface-bright dark:bg-surface-container-lowest shadow-sm dark:shadow-none mt-16">
+        <nav class="flex flex-col gap-1">
+            <a class="flex items-center gap-3 theme-gradient text-white rounded-full px-4 py-3 mx-2 transition-all duration-200 ease-in-out shadow-sm"
+                href="#" style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-body-md text-body-md">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+                <span class="font-body-md text-body-md">Event List</span>
+            </a>
+
+            <a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out"
+                href="{% url 'event_types' %}">
+                <span class="material-symbols-outlined">category</span>
+                <span class="font-body-md text-body-md">Event Types</span>
+            </a>
+
+            
+
+            <a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="payment">payment</span>
+                <span class="font-body-md text-body-md">Payments</span>
+            </a>
+
+            <a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+                <span class="font-body-md text-body-md">User Roles</span>
+            </a>
+            <a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant px-4 py-3 mx-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="mail">mail</span>
+                <span class="font-body-md text-body-md">Email Setup</span>
+            </a>
+            <div class="mt-auto px-6 py-4">
+                <p class="font-label-sm text-label-sm text-outline">v1.2.4</p>
+            </div>
+        </nav>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="md:ml-[280px] pt-24 px-4 md:px-margin-desktop pb-24 max-w-container-max mx-auto">
+        <!-- Header & Action -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+                <h2 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">System Overview</h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant">Manage your high-stakes logistics and
+                    ongoing event operations.</p>
+            </div>
+            <button
+                class="theme-gradient text-white px-6 py-3 rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:brightness-110 transition-all active:scale-95 h-12 w-full md:w-auto"
+                style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;"
+                onclick="document.getElementById('create-event-modal').classList.remove('hidden')">
+                <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                Create Event
+            </button>
+        </div>
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Ongoing Events Section -->
+            <section class="lg:col-span-8 space-y-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 px-2">
+
+                    <div
+                        class="stat-card bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+                        <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total
+                            Events</p>
+                        <h4 class="font-headline-lg text-headline-lg text-primary mt-1">{{ total_events }}</h4>
+                    </div>
+
+                    <div
+                        class="stat-card bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+                        <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active
+                            Events</p>
+                        <h4 class="font-headline-lg text-headline-lg text-green-700 mt-1">{{ total_active_events }}</h4>
+                    </div>
+
+                    <div
+                        class="stat-card bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+                        <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total
+                            Registrations</p>
+                        <h4 class="font-headline-lg text-headline-lg text-on-surface mt-1">{{ total_registrations }}
+                        </h4>
+                    </div>
+
+                    <div
+                        class="stat-card bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+                        <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                            Check-ins</p>
+                        <h4 class="font-headline-lg text-headline-lg text-on-surface mt-1">{{ total_checkins }}</h4>
+                    </div>
+
+                    <div
+                        class="stat-card bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+                        <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                            Attendance Rate</p>
+                        <h4 class="font-headline-lg text-headline-lg text-secondary mt-1">{{
+                            attendance_rate|floatformat:1 }}%</h4>
+                    </div>
+
+                    <div
+                        class="stat-card bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+                        <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">No-shows
+                        </p>
+                        <h4 class="font-headline-lg text-headline-lg text-secondary mt-1">{{ no_shows }}</h4>
+                    </div>
+
+                </div>
+                <div class="flex items-center justify-between px-2">
+                    <h3 class="font-headline-lg text-headline-lg text-on-surface">Ongoing Events</h3>
+                    <a class="text-primary font-label-md text-label-md hover:underline" href="#">View All</a>
+                </div>
+                <div class="space-y-4">
+                    <!-- Event Card 1 -->
+                    <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:border-primary transition-colors"
+                        style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg theme-gradient flex items-center justify-center text-white"
+                                style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                                <span class="material-symbols-outlined" data-icon="festival">festival</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-headline-md text-on-surface">Global Tech Summit 2024
+                                </h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px]"
+                                        data-icon="calendar_month">calendar_month</span>
+                                    Oct 24 - 26, 2024
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between md:justify-end gap-4">
+                            <span
+                                class="px-3 py-1 rounded-full bg-green-100 text-green-700 font-label-md text-label-md flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                Live
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"
+                                    title="Edit">
+                                    <span class="material-symbols-outlined" data-icon="edit">edit</span>
+                                </button>
+                                <button class="p-2 text-on-surface-variant hover:text-error transition-colors"
+                                    title="Delete">
+                                    <span class="material-symbols-outlined" data-icon="delete">delete</span>
+                                </button>
+                                <button
+                                    class="ml-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md text-label-md hover:theme-gradient hover:text-white transition-all"
+                                    onclick="document.getElementById('event-details-modal').classList.remove('hidden')">View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Event Card 2 -->
+                    <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:border-primary transition-colors"
+                        style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary">
+                                <span class="material-symbols-outlined" data-icon="corporate_fare">corporate_fare</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-headline-md text-on-surface">Annual Shareholder Meet
+                                </h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px]"
+                                        data-icon="calendar_month">calendar_month</span>
+                                    Nov 12, 2024
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between md:justify-end gap-4">
+                            <span
+                                class="px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-md text-label-md flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-outline"></span>
+                                Draft
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="edit">edit</span>
+                                </button>
+                                <button class="p-2 text-on-surface-variant hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="delete">delete</span>
+                                </button>
+                                <button
+                                    class="ml-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md text-label-md hover:theme-gradient hover:text-white transition-all">View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Event Card 3 -->
+                    <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:border-primary transition-colors"
+                        style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+                                <span class="material-symbols-outlined" data-icon="stadium">stadium</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-headline-md text-on-surface">City Marathon Expo</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px]"
+                                        data-icon="calendar_month">calendar_month</span>
+                                    Dec 05, 2024
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between md:justify-end gap-4">
+                            <span
+                                class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-label-md text-label-md flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                In-Progress
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="edit">edit</span>
+                                </button>
+                                <button class="p-2 text-on-surface-variant hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="delete">delete</span>
+                                </button>
+                                <button
+                                    class="ml-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md text-label-md hover:theme-gradient hover:text-white transition-all">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Quick Actions Section -->
+            <aside class="lg:col-span-4 space-y-6">
+                <h3 class="font-headline-lg text-headline-lg text-on-surface px-2">Quick Actions</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Manage Users Tile -->
+                    <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-pointer active:scale-[0.98] transition-transform"
+                        style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <span class="material-symbols-outlined text-[120px]" data-icon="group">group</span>
+                        </div>
+                        <div class="flex flex-col gap-4 relative z-10">
+                            <div class="w-10 h-10 rounded-full theme-gradient text-white flex items-center justify-center shadow-sm"
+                                style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                                <span class="material-symbols-outlined" data-icon="group">group</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-headline-md text-on-surface">Manage Users</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Configure permissions
+                                    and observer roles.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- System Setup Tile -->
+                    <div class="glass-card p-6 rounded-2xl relative overflow-hidden group cursor-pointer active:scale-[0.98] transition-transform"
+                        style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <span class="material-symbols-outlined text-[120px]" data-icon="settings">settings</span>
+                        </div>
+                        <div class="flex flex-col gap-4 relative z-10">
+                            <div
+                                class="w-10 h-10 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center">
+                                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                            </div>
+                            <div>
+                                <h4 class="font-headline-md text-headline-md text-on-surface">System Setup</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Adjust global
+                                    parameters and logistics.</p>
+                                <div
+                                    class="mt-4 inline-flex items-center gap-2 bg-secondary-fixed px-3 py-1 rounded-full text-on-secondary-fixed-variant">
+                                    <span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+                                    <span class="font-label-sm text-label-sm">Email Configuration: Coming Soon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stats/Activity Mini Card -->
+                <div class="theme-gradient text-white p-6 rounded-2xl shadow-xl relative overflow-hidden"
+                    style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                    <div class="relative z-10">
+                        <p class="font-label-md text-label-md opacity-90 uppercase tracking-widest mb-1">Weekly Activity
+                        </p>
+                        <h4 class="font-headline-xl text-headline-xl text-white">84%</h4>
+                        <p class="font-body-md text-body-md opacity-90 mt-2">Resource utilization is higher than last
+                            week.</p>
+                    </div>
+                    <div class="absolute bottom-0 right-0 p-4 opacity-20">
+                        <span class="material-symbols-outlined text-6xl" data-icon="trending_up">trending_up</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline">
+        <a class="flex flex-col items-center justify-center theme-gradient text-white rounded-full px-4 py-1 transition-transform duration-150 active:scale-90"
+            href="#" style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+            <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+            <span class="font-label-sm text-label-sm">Events</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary transition-transform duration-150 active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="group">group</span>
+            <span class="font-label-sm text-label-sm">Users</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary transition-transform duration-150 active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="settings">settings</span>
+            <span class="font-label-sm text-label-sm">Settings</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:text-primary transition-transform duration-150 active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="history">history</span>
+            <span class="font-label-sm text-label-sm">Logs</span>
+        </a>
+    </nav>
+    <script>
+        // Simple ripple effect or micro-interaction logic
+        document.querySelectorAll('button, .glass-card').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.97)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+
+        // Dashboard animation on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.bg-surface-container-lowest, .glass-card, .theme-gradient');
+            cards.forEach((card, index) => {
+                const originalOpacity = window.getComputedStyle(card).opacity;
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                setTimeout(() => {
+                    card.style.opacity = originalOpacity === '0' ? '1' : originalOpacity;
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto hidden"
+        id="create-event-modal">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-on-surface opacity-50"></div>
+
+
+        <!-- Modal Container -->
+        <div class="relative bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200"
+            style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-headline-lg text-headline-lg text-on-surface">Create New Event</h3>
+                    <button class="p-2 hover:bg-surface-container rounded-full transition-colors"
+                        onclick="document.getElementById('create-event-modal').classList.add('hidden')">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+
+                <form method="POST" action="{% url 'create_event' %}" class="space-y-5">
+                    {% csrf_token %}
+
+                    <!-- Event Name -->
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
+                            Event Name
+                        </label>
+                        <input type="text" name="title" placeholder="e.g. Tech Conference 2025"
+                            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all">
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
+                            Event Description
+                        </label>
+                        <textarea name="description" rows="4" placeholder="Describe your event..."
+                            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all resize-none"></textarea>
+                    </div>
+
+                    <!-- Event Type -->
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
+                            Event Type
+                        </label>
+
+                        <select name="event_type" required
+                            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all">
+
+                            <option value="">
+                                Select Event Type
+                            </option>
+
+                            {% for event_type in event_types %}
+                            <option value="{{ event_type.id }}">
+                                {{ event_type.name }}
+                            </option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <!-- Location -->
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
+                            Location
+                        </label>
+                        <input type="text" name="location" placeholder="e.g. Nairobi Serena Hotel"
+                            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all">
+                    </div>
+
+                    <!-- Event Date -->
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
+                            Date
+                        </label>
+                        <input type="date" name="date"
+                            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all">
+                    </div>
+
+                    <!-- Capacity -->
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
+                            Capacity
+                        </label>
+                        <input type="number" name="capacity" placeholder="e.g. 500"
+                            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all">
+                    </div>
+
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
+                            Payment Type
+                        </label>
+
+                        <select name="free_or_paid"
+                            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all">
+
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+
+                        </select>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3 pt-4">
+                        <button type="button"
+                            onclick="document.getElementById('create-event-modal').classList.add('hidden')"
+                            class="flex-1 py-3 rounded-xl border border-outline-variant text-on-surface hover:bg-surface-container transition-all">
+                            Cancel
+                        </button>
+
+                        <button type="submit"
+                            class="flex-1 theme-gradient text-white py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition-all active:scale-95">
+                            Create Event
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto hidden"
+        id="event-details-modal">
+        <div class="fixed inset-0 bg-on-surface opacity-50"
+            onclick="document.getElementById('event-details-modal').classList.add('hidden')"></div>
+        <div class="relative bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200"
+            style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-headline-lg text-headline-lg text-on-surface">Event Details</h3>
+                    <button class="p-2 hover:bg-surface-container rounded-full transition-colors"
+                        onclick="document.getElementById('event-details-modal').classList.add('hidden')">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-headline-md text-headline-md text-on-surface">Global Tech Summit 2024</h4>
+                            <span
+                                class="px-3 py-1 rounded-full bg-green-100 text-green-700 font-label-md text-label-md flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                Live
+                            </span>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                                Oct 24 - 26, 2024
+                            </p>
+                            <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px]">location_on</span>
+                                San Francisco, CA
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2">
+                            Summary</p>
+                        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            This flagship summit coordinates high-stakes logistics for over 1,000 global attendees,
+                            featuring real-time session tracking and complex vendor management across multiple venues.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 p-4 bg-surface-container rounded-xl">
+                        <div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Registrations</p>
+                            <p class="font-headline-md text-headline-md text-primary">1,240</p>
+                        </div>
+                        <div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Attendance</p>
+                            <p class="font-headline-md text-headline-md text-secondary">76%</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3 pt-2">
+                        <button
+                            class="theme-gradient text-white w-full py-3 rounded-xl font-headline-md text-headline-md shadow-md hover:brightness-110 transition-all active:scale-95 flex items-center justify-center gap-2"
+                            style="opacity: 1; transform: translateY(0px); transition: opacity 0.5s, transform 0.5s;">
+                            <span class="material-symbols-outlined">picture_as_pdf</span>
+                            Export to PDF
+                        </button>
+                        <button
+                            class="w-full py-3 rounded-xl font-headline-md text-headline-md text-on-surface-variant hover:bg-surface-container transition-all"
+                            onclick="document.getElementById('event-details-modal').classList.add('hidden')">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function closeAllModals() {
+            document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+                modal.classList.add('hidden');
+            });
+        }
+
+        // Close when ESC is pressed
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeAllModals();
+            }
+        });
+
+        // Close when clicking outside modal content
+        document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

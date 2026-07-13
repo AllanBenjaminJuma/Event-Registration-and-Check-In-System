@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html class="dark" lang="en" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>EventOps - Event Types Management</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "border-glass": "rgba(255, 255, 255, 0.1)",
+                        "surface-bright": "#2a3a4f",
+                        "tertiary-container": "#7f3500",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-on-surface": "#213145",
+                        "on-primary-container": "#a1baff",
+                        "on-primary-fixed": "#001946",
+                        "inverse-surface": "#d3e4fe",
+                        "surface-glass": "rgba(30, 41, 59, 0.7)",
+                        "primary-fixed": "#dae2ff",
+                        "outline": "#8d909d",
+                        "on-secondary-container": "#adb4ce",
+                        "on-secondary": "#283044",
+                        "inverse-primary": "#345bae",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-primary": "#002c70",
+                        "surface-container-high": "#1b2b3f",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#0b1c30",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "tertiary": "#ffb691",
+                        "surface-container-lowest": "#000f21",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "on-background": "#d3e4fe",
+                        "on-error": "#690005",
+                        "surface": "#031427",
+                        "on-tertiary-fixed": "#341100",
+                        "surface-container-highest": "#26364a",
+                        "on-tertiary-fixed-variant": "#783100",
+                        "on-tertiary-container": "#ffa677",
+                        "warning": "#F59E0B",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-container": "#102034",
+                        "on-surface": "#d3e4fe",
+                        "on-surface-variant": "#c4c6d3",
+                        "primary-container": "#1b479a",
+                        "secondary-fixed": "#dae2fd",
+                        "secondary-container": "#3f465c",
+                        "primary": "#b1c5ff",
+                        "error": "#EF4444",
+                        "on-tertiary": "#552100",
+                        "secondary": "#bec6e0",
+                        "surface-dim": "#031427",
+                        "background": "#031427",
+                        "on-primary-fixed-variant": "#144295",
+                        "tertiary-fixed": "#ffdbcb",
+                        "outline-variant": "#434652",
+                        "surface-variant": "#26364a",
+                        "error-container": "#93000a",
+                        "success": "#10B981",
+                        "surface-tint": "#b1c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "bento-gap": "16px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "code-sm": ["monospace"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #031427;
+            color: #d3e4fe;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .primary-gradient-btn {
+            background: linear-gradient(135deg, #1b479a 0%, #345bae 100%);
+            transition: all 0.2s ease;
+        }
+
+        .primary-gradient-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .active-glow {
+            box-shadow: 0 0 15px rgba(177, 197, 255, 0.2);
+        }
+
+        /* Custom scrollbar for logistics feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #031427;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1b2b3f;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #345bae;
+        }
+    </style>
+</head>
+
+<body class="flex min-h-screen">
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="mb-4 p-4 rounded-xl bg-green-100 text-green-800">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="fixed top-0 left-0 z-[100] p-4">
+        <h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary tracking-tighter">EventOps
+        </h1>
+    </div>
+    <!-- SideNavBar (Persistent Anchor) -->
+    <aside
+        class="fixed left-0 top-0 h-full flex flex-col p-bento-gap z-40 pt-20 bg-surface-container dark:bg-surface-container border-r border-border-glass bg-surface-glass backdrop-blur-xl w-64">
+        <div class="mb-8 px-2 flex items-center gap-3">
+            <div
+                class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">dataset</span>
+            </div>
+            <div>
+                <h2 class="font-title-md text-title-md font-black text-on-surface">EventOps</h2>
+                <p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Logistics Management</p>
+            </div>
+        </div>
+        <nav class="flex-1 space-y-1">
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-all rounded-lg active:translate-x-1 font-label-sm text-label-sm"
+                href="{% url 'dashboard' %}">
+                <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-all rounded-lg active:translate-x-1 font-label-sm text-label-sm"
+                href="#">
+                <span class="material-symbols-outlined">event_note</span> Event List
+            </a>
+            <!-- Active Tab: Event Types -->
+            <a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold active-glow active:translate-x-1 font-label-sm text-label-sm"
+                href="#">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">category</span> Event Types
+            </a>
+
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-all rounded-lg active:translate-x-1 font-label-sm text-label-sm"
+                href="#">
+                <span class="material-symbols-outlined">payment</span> Payments
+            </a>
+
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-all rounded-lg active:translate-x-1 font-label-sm text-label-sm"
+                href="#">
+                <span class="material-symbols-outlined">group</span> User Roles
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-all rounded-lg active:translate-x-1 font-label-sm text-label-sm"
+                href="#">
+                <span class="material-symbols-outlined">mail</span> Email Setup
+            </a>
+        </nav>
+        <div class="mt-auto pt-6 border-t border-border-glass space-y-1">
+            <button
+                class="w-full primary-gradient-btn text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-4 active:scale-95 transition-transform">
+                <span class="material-symbols-outlined">add</span> New Event
+            </button>
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-all rounded-lg font-label-sm text-label-sm"
+                href="#">
+                <span class="material-symbols-outlined">help</span> Support
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-all rounded-lg font-label-sm text-label-sm"
+                href="#">
+                <span class="material-symbols-outlined">logout</span> Sign Out
+            </a>
+        </div>
+    </aside>
+    <!-- Main Viewport -->
+    <main class="flex-1 pl-64 flex flex-col relative overflow-hidden">
+        <!-- TopNavBar (Fixed Execution) -->
+        <header
+            class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface-glass dark:bg-surface-glass backdrop-blur-md border-b border-border-glass shadow-none">
+            <div class="flex items-center pl-64">
+
+                <div class="relative group hidden md:block w-64">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input
+                        class="bg-surface-container-low border-border-glass text-on-surface rounded-full pl-10 pr-4 py-1.5 w-64 focus:ring-1 focus:ring-primary focus:border-primary transition-all"
+                        placeholder="Search logistics data..." type="text">
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="p-2 rounded-full text-primary hover:bg-white/5 transition-colors relative active:scale-95">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+                </button>
+                <button class="p-2 rounded-full text-primary hover:bg-white/5 transition-colors active:scale-95">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="h-8 w-px bg-border-glass mx-2"></div>
+                <div class="flex items-center gap-3 cursor-pointer group">
+                    <div class="text-right hidden sm:block">
+                        <p class="font-label-sm text-label-sm font-bold text-on-surface">Admin User</p>
+                        <p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Global Logistics</p>
+                    </div>
+                    <img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover"
+                        data-alt="A professional headshot of a corporate administrator, high-key lighting, soft focus background of a modern logistics command center with glowing blue screens, sharp focus on subject, dark navy blue business attire, cinematic commercial photography style."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAptYxJquqReESiHCk5u_OHIkMb2sATrm8Sqyhm_L8QtAN66nx3acVDUAKwOVop1ohKsjDiVVbWx0Kb6oi6jzG4wUdBzBQACosgM-moBjn-t9vm4srBbecOHfAA1nS-Ur9Y3ymmOQUqzzUg9nKWGKL8nn3HOHw3k5TOab_N9Vq9LyFfDC_ZxJYM9Oht_YEUbT__td7gosPFKVAhmzBHlerZQ8D6-BA2V8mpVdp9JHTK7xVoKoedz28ydxAX6oHp2rmQbuSpm1IV2DMU">
+                </div>
+            </div>
+        </header>
+        <!-- Content Canvas -->
+        <div class="pt-24 px-margin-desktop pb-12 flex-1 w-full max-w-7xl mx-auto">
+            <!-- Header Section -->
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg text-primary mb-1">Event Types</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Configure and manage logistics
+                        categories for global events.</p>
+                </div>
+                <button
+                    class="primary-gradient-btn text-white font-bold py-2.5 px-6 rounded-lg flex items-center gap-2 active:scale-95 transition-transform text-label-sm"
+                    onclick="openModal()">
+                    <span class="material-symbols-outlined">add_circle</span> Add Event Type
+                </button>
+            </div>
+            <!-- Stats Row (Bento Style) -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-bento-gap mb-bento-gap">
+                <!-- Stat Card 1 -->
+                <div class="glass-card rounded-xl p-gutter flex flex-col justify-between"
+                    style="--mouse-x: 17px; --mouse-y: 30px;">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-on-surface-variant font-label-sm text-label-sm">Total Event Types</span>
+                        <div class="bg-primary-container/20 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-primary">category</span>
+                        </div>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="text-4xl font-bold text-on-surface">{{ event_types_count }}</span>
+                        <span class="text-success text-xs font-bold pb-1 flex items-center">
+                            <span class="material-symbols-outlined text-sm">trending_up</span> 8%
+                        </span>
+                    </div>
+                </div>
+                <!-- Stat Card 2 -->
+                <div class="glass-card rounded-xl p-gutter flex flex-col justify-between"
+                    style="--mouse-x: 151px; --mouse-y: 123px;">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-on-surface-variant font-label-sm text-label-sm">Active Types</span>
+                        <div class="bg-success/10 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-success"></span>
+                        </div>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="text-4xl font-bold text-on-surface">{{ event_types_count }}</span>
+                        <span class="text-on-surface-variant text-xs opacity-50 pb-1">Stable</span>
+                    </div>
+                </div>
+                <!-- Stat Card 3 -->
+                <div class="glass-card rounded-xl p-gutter flex flex-col justify-between"
+                    style="--mouse-x: 2px; --mouse-y: 61px;">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-on-surface-variant font-label-sm text-label-sm">Events Created</span>
+                        <div class="bg-tertiary-container/20 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-tertiary">analytics</span>
+                        </div>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="text-4xl font-bold text-on-surface">{{ total_events_count }}</span>
+                        <span class="text-success text-xs font-bold pb-1 flex items-center">
+                            <span class="material-symbols-outlined text-sm">arrow_upward</span> +24
+                        </span>
+                    </div>
+                </div>
+                <!-- Stat Card 4 -->
+                <div class="glass-card rounded-xl p-gutter flex flex-col justify-between relative overflow-hidden"
+                    style="--mouse-x: 33px; --mouse-y: 11px;">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-on-surface-variant font-label-sm text-label-sm">Most Used Type</span>
+                        <div class="bg-primary/10 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-primary">stars</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold text-on-surface truncate">{{ most_used_event_type.name }}</span>
+                        <div class="mt-2 h-8 w-full">
+                            <!-- Sparkline simulation with CSS -->
+                            <div class="flex items-end gap-1 h-full pt-2">
+                                <div class="w-1 bg-primary/20 h-2 rounded-full"></div>
+                                <div class="w-1 bg-primary/30 h-4 rounded-full"></div>
+                                <div class="w-1 bg-primary/40 h-3 rounded-full"></div>
+                                <div class="w-1 bg-primary/60 h-6 rounded-full"></div>
+                                <div class="w-1 bg-primary/40 h-4 rounded-full"></div>
+                                <div class="w-1 bg-primary/80 h-7 rounded-full"></div>
+                                <div class="w-1 bg-primary h-8 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Management Table (Bento Style) -->
+            <div class="glass-card rounded-xl overflow-hidden"
+                style="--mouse-x: 384px; --mouse-y: 127.16250610351562px;">
+                <div class="px-gutter py-4 border-b border-border-glass flex justify-between items-center bg-white/5">
+                    <h3 class="font-title-md text-title-md font-bold text-on-surface">Event Types</h3>
+                    <div class="flex gap-2">
+                        <button class="p-1.5 hover:bg-white/10 rounded text-on-surface-variant transition-colors">
+                            <span class="material-symbols-outlined text-sm">filter_list</span>
+                        </button>
+                        <button class="p-1.5 hover:bg-white/10 rounded text-on-surface-variant transition-colors">
+                            <span class="material-symbols-outlined text-sm">download</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr
+                                class="text-on-surface-variant font-label-sm text-label-sm bg-surface-container-high/50">
+                                <th class="px-gutter py-4 font-semibold uppercase tracking-wider">Type Name</th>
+                                <th class="px-gutter py-4 font-semibold uppercase tracking-wider">Event Count</th>
+                                <th class="px-gutter py-4 font-semibold uppercase tracking-wider">Usage Status</th>
+                                <th class="px-gutter py-4 font-semibold uppercase tracking-wider text-right">Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border-glass">
+
+                            {% for event_type in event_types %}
+                            <tr class="hover:bg-white/5 transition-colors group">
+
+                                <!-- Type Name -->
+                                <td class="px-gutter py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-success"></div>
+                                        <span class="font-medium text-on-surface">
+                                            {{ event_type.name }}
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <!-- Event Count -->
+                                <td class="px-gutter py-4">
+                                    <span
+                                        class="bg-surface-container-highest px-2.5 py-1 rounded text-xs text-on-surface font-code-sm">
+                                        {{ event_type.event_count }} Events
+                                    </span>
+                                </td>
+
+                                <!-- Usage Status -->
+                                <td class="px-gutter py-4">
+
+                                    {% if event_type.event_count > 0 %}
+                                    <span
+                                        class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
+                                        Active
+                                    </span>
+                                    {% else %}
+                                    <span
+                                        class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium">
+                                        Unused
+                                    </span>
+                                    {% endif %}
+
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="px-gutter py-4 text-right">
+                                    <div class="flex justify-end gap-1">
+
+                                        <button onclick="openEditModal('{{ event_type.id}}', '{{event_type.name}}')"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-primary-container/30 text-primary transition-colors">
+                                            <span class="material-symbols-outlined text-lg">
+                                                edit
+                                            </span>
+                                        </button>
+
+                                        <button
+                                            onclick="openDeleteModal('{{ event_type.id }}', '{{ event_type.name }}')"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-error/10 text-error transition-colors">
+                                            <span class="material-symbols-outlined text-lg">
+                                                delete
+                                            </span>
+                                        </button>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-8 text-on-surface-variant">
+                                    No event types found.
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div
+                    class="px-gutter py-4 bg-white/5 flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+                    <span class="">Showing 6 of 12 Event Types</span>
+                    <div class="flex gap-2">
+                        <button
+                            class="px-3 py-1 bg-surface-container-highest border border-border-glass rounded hover:bg-primary/20 transition-colors">Previous</button>
+                        <button
+                            class="px-3 py-1 bg-primary text-on-primary rounded hover:bg-primary/80 transition-colors">Next</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Meta Info -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-bento-gap">
+                <div class="glass-card p-gutter rounded-xl flex items-center gap-4"
+                    style="--mouse-x: 144px; --mouse-y: 61.1624755859375px;">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">verified_user</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-on-surface">Permission Guard</h4>
+                        <p class="text-xs text-on-surface-variant">Only Master Administrators can delete legacy event
+                            types.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-gutter rounded-xl flex items-center gap-4"
+                    style="--mouse-x: 15px; --mouse-y: 2.1624755859375px;">
+                    <div class="w-12 h-12 bg-tertiary/10 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-tertiary">update</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-on-surface">Auto-Archive</h4>
+                        <p class="text-xs text-on-surface-variant">Types with 0 events for 12 months are auto-flagged
+                            for removal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Atmospheric Background Elements -->
+        <div class="absolute top-0 right-0 -z-10 w-full h-full pointer-events-none overflow-hidden opacity-30">
+            <div class="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-tertiary/5 rounded-full blur-[100px]"></div>
+        </div>
+    </main>
+    <!-- Micro-interaction Scripts -->
+    <script>
+        // Simple hover effect for glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Search bar activation
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('w-80');
+            searchInput.parentElement.classList.remove('w-64');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.add('w-64');
+            searchInput.parentElement.classList.remove('w-80');
+        });
+    </script>
+
+
+    <!-- Modal to add a new event type -->
+
+    <div id="add-event-type-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-surface/80 backdrop-blur-sm">
+        <div class="glass-card w-full max-w-lg rounded-xl overflow-hidden shadow-2xl">
+            <div class="px-6 py-4 border-b border-border-glass flex justify-between items-center bg-white/5">
+                <h3 class="font-title-md text-title-md font-bold text-on-surface">Create New Event Type</h3>
+                <button onclick="closeModal()"
+                    class="p-1.5 hover:bg-white/10 rounded text-on-surface-variant transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form class="p-6 space-y-4" method="post" action="{% url 'create_event_type' %}">
+                {% csrf_token %}
+                <div class="space-y-1">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant">Type Name</label>
+                    <input type="text" name="name" required placeholder="e.g. Executive Seminar"
+                        class="w-full bg-surface-container-low border-border-glass text-on-surface rounded-lg px-4 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary transition-all">
+                </div>
+                <div class="space-y-1">
+                    <label class="font-label-sm text-label-sm text-on-surface-variant">Description</label>
+                    <textarea name="description" placeholder="Briefly describe the purpose of this event type..."
+                        rows="3"
+                        class="w-full bg-surface-container-low border-border-glass text-on-surface rounded-lg px-4 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary transition-all"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Icon</label>
+                        <select name="icon"
+                            class="w-full bg-surface-container-low border-border-glass text-on-surface rounded-lg px-4 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary transition-all">
+                            <option value="event">Event</option>
+                            <option value="groups">Groups</option>
+                            <option value="school">School</option>
+                            <option value="meeting_room">Meeting Room</option>
+                            <option value="emoji_events">Trophy</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Default Capacity</label>
+                        <input type="number" placeholder="50"
+                            class="w-full bg-surface-container-low border-border-glass text-on-surface rounded-lg px-4 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary transition-all">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeModal()"
+                        class="px-6 py-2.5 rounded-lg border border-border-glass text-on-surface-variant hover:bg-white/5 transition-colors font-label-sm text-label-sm">Cancel</button>
+                    <button type="submit"
+                        class="primary-gradient-btn text-white font-bold py-2.5 px-6 rounded-lg active:scale-95 transition-transform font-label-sm text-label-sm">Save
+                        Event Type</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="delete-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-surface/80 backdrop-blur-sm">
+
+        <div class="glass-card w-full max-w-md rounded-xl overflow-hidden shadow-2xl">
+
+            <div class="px-6 py-4 border-b border-border-glass bg-white/5 flex items-center gap-3">
+
+                <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-red-400">
+                        delete
+                    </span>
+                </div>
+
+                <h3 class="text-lg font-bold text-on-surface">
+                    Delete Event Type
+                </h3>
+
+            </div>
+
+            <div class="p-6">
+
+                <p id="delete-message" class="text-on-surface-variant leading-relaxed">
+                </p>
+
+                <div class="flex justify-end gap-3 mt-8">
+
+                    <button onclick="closeDeleteModal()" class="px-5 py-2.5 rounded-lg border border-border-glass
+                           text-on-surface hover:bg-white/10 transition">
+
+                        Cancel
+
+                    </button>
+
+                    <a id="delete-link" class="px-5 py-2.5 rounded-lg bg-red-600 hover:bg-red-700
+                           text-white font-semibold transition">
+
+                        Delete
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Edit Event TypeModal -->
+    <div id="edit-event-type-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-surface/80 backdrop-blur-sm">
+
+        <div class="glass-card w-full max-w-lg rounded-xl overflow-hidden shadow-2xl">
+
+            <div class="px-6 py-4 border-b border-border-glass bg-white/5 flex justify-between items-center">
+
+                <h3 class="text-xl font-bold text-on-surface">
+                    Edit Event Type
+                </h3>
+
+                <button onclick="closeEditModal()" class="p-2 rounded-lg hover:bg-white/10 text-on-surface-variant">
+
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+
+                </button>
+
+            </div>
+
+            <form method="POST" action="{% url 'edit_event_type' %}" class="p-6">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="event_type_id" id="edit-event-type-id">
+
+                <div class="space-y-2">
+
+                    <label class="block text-sm font-semibold text-on-surface">
+
+                        Event Type Name
+
+                    </label>
+
+                    <input id="edit-event-type-name" name="name" type="text" required class="w-full rounded-lg
+                           bg-surface-container-low
+                           border border-border-glass
+                           text-on-surface
+                           placeholder:text-on-surface-variant
+                           px-4 py-3
+                           focus:ring-2
+                           focus:ring-primary
+                           focus:border-primary">
+
+                    <label class="block text-sm font-semibold text-on-surface">
+
+                        Event Type Description
+
+                    </label>
+
+                    <input id="edit-event-type-description" name="description" type="text" required class="w-full rounded-lg
+                           bg-surface-container-low
+                           border border-border-glass
+                           text-on-surface
+                           placeholder:text-on-surface-variant
+                           px-4 py-3
+                           focus:ring-2
+                           focus:ring-primary
+                           focus:border-primary">
+
+                </div>
+
+                <div class="flex justify-end gap-3 mt-8">
+
+                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 rounded-lg
+                           border border-border-glass
+                           text-on-surface
+                           hover:bg-white/10">
+
+                        Cancel
+
+                    </button>
+
+                    <button type="submit" class="primary-gradient-btn
+                           px-5 py-2.5
+                           rounded-lg
+                           text-white
+                           font-semibold">
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script>
+        function openDeleteModal(id, name) {
+
+            document.getElementById("delete-message").innerText =
+                `Are you sure you want to delete "${name}"?`;
+
+            document.getElementById("delete-link").href =
+                `/event-types/${id}/delete/`;
+
+            const modal = document.getElementById("delete-modal");
+
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+
+        function closeDeleteModal() {
+
+            const modal = document.getElementById("delete-modal");
+
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        }
+
+
+        function openEditModal(id, name, description) {
+
+            document.getElementById("edit-event-type-id").value = id;
+            document.getElementById("edit-event-type-name").value = name;
+            document.getElementById("edit-event-type-description").value = description;
+
+            const modal = document.getElementById("edit-event-type-modal");
+
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+
+        function closeEditModal() {
+
+            const modal = document.getElementById("edit-event-type-modal");
+
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        }
+
+        document.addEventListener('keydown', function (e) {
+
+            if (e.key === 'Escape') {
+                closeEditModal();
+            }
+
+        });
+
+        function openModal() {
+
+            const modal = document.getElementById("add-event-type-modal");
+
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+
+        }
+
+        function closeModal() {
+
+            const modal = document.getElementById("add-event-type-modal");
+
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+
+        }
+
+    </script>
+
+</body>
+
+
+</html>
