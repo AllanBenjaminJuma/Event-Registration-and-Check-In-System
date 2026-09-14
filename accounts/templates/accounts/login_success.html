@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login Successful</title>
+</head>
+
+<body>
+
+    <h1>Login Successful</h1>
+
+    <p>
+        Welcome {{ request.user.first_name }}.
+    </p>
+
+    <p>
+        You are now authenticated.
+    </p>
+
+    <p>
+        Logged in as:
+        {{ request.user.email }}
+    </p>
+
+    <form method="post" action="{% url 'accounts:logout' %}">
+        {% csrf_token %}
+
+        <button type="submit">
+            Logout
+        </button>
+    </form>
+
+</body>
+
+</html>

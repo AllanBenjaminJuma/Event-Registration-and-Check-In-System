@@ -1,0 +1,1558 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Event | EventOps</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+
+    <link rel="stylesheet" href="{% static 'css/create_event_styles.css' %}">
+
+</head>
+
+<body>
+
+    <div class="flex min-h-screen">
+
+        <!-- ======================================= -->
+        <!-- Sidebar -->
+        <!-- ======================================= -->
+
+        <aside class="w-72 bg-white border-r shadow-sm">
+
+            <div class="p-8 border-b">
+
+                <h2 class="text-2xl font-bold text-indigo-700">
+
+                    EventOps
+
+                </h2>
+
+                <p class="text-sm text-gray-500">
+
+                    Administration
+
+                </p>
+
+            </div>
+
+            <nav class="p-5 space-y-2">
+
+                <a href="{% url 'dashboard' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg bg-indigo-600 text-white">
+
+                    <span class="material-symbols-outlined">
+
+                        dashboard
+
+                    </span>
+
+                    Dashboard
+
+                </a>
+
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100">
+
+                    <span class="material-symbols-outlined">
+
+                        event
+
+                    </span>
+
+                    Events
+
+                </a>
+
+                <a href="{% url 'event_types' %}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100">
+
+                    <span class="material-symbols-outlined">
+
+                        category
+
+                    </span>
+
+                    Event Types
+
+                </a>
+
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100">
+
+                    <span class="material-symbols-outlined">
+
+                        payments
+
+                    </span>
+
+                    Payments
+
+                </a>
+
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100">
+
+                    <span class="material-symbols-outlined">
+
+                        groups
+
+                    </span>
+
+                    Users
+
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- ======================================= -->
+        <!-- Main Content -->
+        <!-- ======================================= -->
+
+        <div class="flex-1 flex flex-col">
+
+            <!-- Header -->
+
+            <header class="bg-white border-b">
+
+                <div class="flex items-center justify-between px-10 py-6">
+
+                    <div>
+
+                        <h1 class="text-3xl font-bold">
+
+                            Create Event
+
+                        </h1>
+
+                        <p class="text-gray-500">
+
+                            Create an event in three easy steps.
+
+                        </p>
+
+                    </div>
+
+                    <button class="px-6 py-3 border rounded-lg hover:bg-gray-100">
+
+                        Cancel
+
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- Main -->
+
+            <main class="flex-1 p-10">
+
+                <div class="max-w-6xl mx-auto">
+
+                    <!-- ================================ -->
+                    <!-- Wizard Progress -->
+                    <!-- ================================ -->
+
+                    <div class="mb-12">
+
+                        <div class="flex items-center">
+
+                            <!-- ===================== -->
+                            <!-- STEP 1 -->
+                            <!-- ===================== -->
+
+                            <div class="flex items-center">
+
+                                <div id="circle1"
+                                    class="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-semibold">
+
+                                    1
+
+                                </div>
+
+                                <div class="ml-3">
+
+                                    <h3 class="font-semibold">
+
+                                        Event
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500">
+
+                                        General Details
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex-1 h-1 bg-gray-200 mx-5">
+
+                                <div id="line1" class="h-full bg-indigo-600 w-0 transition-all duration-500"></div>
+
+                            </div>
+
+                            <!-- ===================== -->
+                            <!-- STEP 2 -->
+                            <!-- ===================== -->
+
+                            <div class="flex items-center">
+
+                                <div id="circle2"
+                                    class="w-12 h-12 rounded-full bg-gray-300 text-gray-700 flex items-center justify-center font-semibold">
+
+                                    2
+
+                                </div>
+
+                                <div class="ml-3">
+
+                                    <h3 class="font-semibold">
+
+                                        Tickets
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500">
+
+                                        Ticket Types
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex-1 h-1 bg-gray-200 mx-5">
+
+                                <div id="line2" class="h-full bg-indigo-600 w-0 transition-all duration-500"></div>
+
+                            </div>
+
+                            <!-- ===================== -->
+                            <!-- STEP 3 -->
+                            <!-- ===================== -->
+
+                            <div class="flex items-center">
+
+                                <div id="circle3"
+                                    class="w-12 h-12 rounded-full bg-gray-300 text-gray-700 flex items-center justify-center font-semibold">
+
+                                    3
+
+                                </div>
+
+                                <div class="ml-3">
+
+                                    <h3 class="font-semibold">
+
+                                        Payments
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500">
+
+                                        Payment Setup
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex-1 h-1 bg-gray-200 mx-5">
+
+                                <div id="line3" class="h-full bg-indigo-600 w-0 transition-all duration-500"></div>
+
+                            </div>
+
+                            <!-- ===================== -->
+                            <!-- STEP 4 -->
+                            <!-- ===================== -->
+
+                            <div class="flex items-center">
+
+                                <div id="circle4"
+                                    class="w-12 h-12 rounded-full bg-gray-300 text-gray-700 flex items-center justify-center font-semibold">
+
+                                    4
+
+                                </div>
+
+                                <div class="ml-3">
+
+                                    <h3 class="font-semibold">
+
+                                        Review
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500">
+
+                                        Publish Event
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ================================= -->
+                    <!-- FORM -->
+                    <!-- ================================= -->
+
+                    <form method="POST" action="{% url 'create_event' %}" id="eventWizard">
+
+                        {% csrf_token %}
+
+                        <!-- ====================================== -->
+                        <!-- STEP 1 -->
+                        <!-- ====================================== -->
+
+                        <section id="step1" class="wizard-step active">
+
+                            <div
+                                class="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-indigo-700 via-blue-700 to-slate-900 shadow-2xl">
+
+                                <!-- Decorative Blur -->
+
+                                <div class="absolute -top-32 -left-20 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl">
+                                </div>
+
+                                <div
+                                    class="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl">
+                                </div>
+
+                                <!-- Content -->
+
+                                <div class="relative p-10">
+
+                                    <div class="mb-10">
+
+                                        <h2 class="text-3xl font-bold text-white">
+
+                                            Event Details
+
+                                        </h2>
+
+                                        <p class="mt-2 text-blue-100">
+
+                                            Tell us about your event before configuring tickets.
+
+                                        </p>
+
+                                    </div>
+
+                                    <!-- ========================= -->
+                                    <!-- General Information -->
+                                    <!-- ========================= -->
+
+                                    <div class="grid lg:grid-cols-2 gap-6">
+
+                                        <!-- Event Title -->
+
+                                        <div class="lg:col-span-2">
+
+                                            <label class="block text-white font-medium mb-2">
+
+                                                Event Title
+
+                                            </label>
+
+                                            <input type="text" name="title" id="title"
+                                                class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white placeholder:text-blue-200 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300 outline-none"
+                                                placeholder="Annual Tourism Conference">
+
+                                        </div>
+
+                                        <!-- Event Type -->
+
+                                        <div>
+
+                                            <label class="block text-white font-medium mb-2">
+
+                                                Event Type
+
+                                            </label>
+
+                                            <select name="event_type" id="event_type" class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur
+           px-5 py-4 text-white
+           focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300
+           transition-all duration-200">
+
+                                                <option value="" class="bg-white text-slate-900">
+                                                    Choose Event Type
+                                                </option>
+
+                                                {% for type in event_types %}
+
+                                                <option value="{{ type.id }}" class="bg-white text-slate-900">
+
+                                                    {{ type.name }}
+
+                                                </option>
+
+                                                {% endfor %}
+
+                                            </select>
+
+                                        </div>
+
+                                        <!-- Capacity -->
+
+                                        <div>
+
+                                            <label class="block text-white font-medium mb-2">
+
+                                                Maximum Capacity
+
+                                            </label>
+
+                                            <input type="number" id="capacity" name="capacity"
+                                                class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white placeholder:text-blue-200"
+                                                placeholder="300">
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Description -->
+
+                                    <div class="mt-8">
+
+                                        <label class="block text-white font-medium mb-2">
+
+                                            Description
+
+                                        </label>
+
+                                        <textarea rows="5" name="description" id="description"
+                                            class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white placeholder:text-blue-200"
+                                            placeholder="Describe your event..."></textarea>
+
+                                    </div>
+
+                                    <!-- Location -->
+
+                                    <div class="mt-8">
+
+                                        <label class="block text-white font-medium mb-2">
+
+                                            Venue
+
+                                        </label>
+
+                                        <input type="text" id="location" name="location"
+                                            class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white placeholder:text-blue-200"
+                                            placeholder="KICC Nairobi">
+
+                                    </div>
+
+                                    <!-- ========================= -->
+                                    <!-- Dates -->
+                                    <!-- ========================= -->
+
+                                    <div class="mt-10">
+
+                                        <h3 class="text-xl font-semibold text-white mb-5">
+
+                                            Event Schedule
+
+                                        </h3>
+
+                                        <div class="grid md:grid-cols-2 gap-6">
+
+                                            <div>
+
+                                                <label class="block text-white mb-2">
+
+                                                    Event Starts
+
+                                                </label>
+
+                                                <input type="datetime-local" id="start_date" name="start_date"
+                                                    class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white">
+
+                                            </div>
+
+                                            <div>
+
+                                                <label class="block text-white mb-2">
+
+                                                    Event Ends
+
+                                                </label>
+
+                                                <input type="datetime-local" id="end_date" name="end_date"
+                                                    class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white">
+
+                                            </div>
+
+                                        </div>
+
+                                        <p id="eventError" class="hidden mt-3 text-red-300 font-medium">
+
+                                            Event end date must be after the start date.
+
+                                        </p>
+
+                                    </div>
+
+                                    <!-- Registration -->
+
+                                    <div class="mt-10">
+
+                                        <h3 class="text-xl font-semibold text-white mb-5">
+
+                                            Registration Window
+
+                                        </h3>
+
+                                        <div class="grid md:grid-cols-2 gap-6">
+
+                                            <div>
+
+                                                <label class="block text-white mb-2">
+
+                                                    Registration Opens
+
+                                                </label>
+
+                                                <input type="datetime-local" id="registration_opens"
+                                                    name="registration_opens"
+                                                    class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white">
+
+                                            </div>
+
+                                            <div>
+
+                                                <label class="block text-white mb-2">
+
+                                                    Registration Closes
+
+                                                </label>
+
+                                                <input type="datetime-local" id="registration_closes"
+                                                    name="registration_closes"
+                                                    class="w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur px-5 py-4 text-white">
+
+                                            </div>
+
+                                        </div>
+
+                                        <p id="registrationError" class="hidden mt-3 text-red-300 font-medium">
+
+                                            Registration closing date must be after the opening date.
+
+                                        </p>
+
+                                        <p id="closingError" class="hidden mt-2 text-red-300 font-medium">
+
+                                            Registration must close before the event starts.
+
+                                        </p>
+
+                                    </div>
+
+                                    <!-- Registration Type -->
+
+                                    <div class="mt-10">
+
+                                        <h3 class="text-xl font-semibold text-white mb-4">
+
+                                            Registration Type
+
+                                        </h3>
+
+                                        <div class="grid md:grid-cols-2 gap-5">
+
+                                            <label id="freeCard"
+                                                class="registration-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur p-6">
+
+                                                <input id="registration_free" type="radio" name="registration_type"
+                                                    value="free" checked class="hidden">
+
+                                                <span class="text-2xl">🎉</span>
+
+                                                <h4 class="mt-4 text-white font-bold">
+
+                                                    Free Event
+
+                                                </h4>
+
+                                                <p class="mt-2 text-blue-100 text-sm">
+
+                                                    No payment required.
+
+                                                </p>
+
+                                            </label>
+
+                                            <label id="paidCard"
+                                                class="registration-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur p-6">
+
+                                                <input id="registration_paid" type="radio" name="registration_type"
+                                                    value="paid" class="hidden">
+
+                                                <span class="text-2xl">💳</span>
+
+                                                <h4 class="mt-4 text-white font-bold">
+
+                                                    Paid Event
+
+                                                </h4>
+
+                                                <p class="mt-2 text-blue-100 text-sm">
+
+                                                    Configure ticket prices in the next step.
+
+                                                </p>
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- Start of stepo 2 -->
+
+                        <section id="step2" class="wizard-step">
+
+                            <div
+                                class="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-slate-900 via-indigo-900 to-blue-900 shadow-2xl">
+
+                                <div class="absolute -top-24 right-0 w-72 h-72 bg-indigo-500/20 blur-3xl rounded-full">
+                                </div>
+
+                                <div class="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full">
+                                </div>
+
+                                <div class="relative p-10">
+
+                                    <div class="flex justify-between items-center mb-8">
+
+                                        <div>
+
+                                            <h2 class="text-3xl font-bold text-white">
+
+                                                Ticket Types
+
+                                            </h2>
+
+                                            <p class="text-blue-100 mt-2">
+
+                                                Configure all ticket categories available for this event.
+
+                                            </p>
+
+                                        </div>
+
+                                        <button type="button" id="addTicket"
+                                            class="bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-3 rounded-xl flex items-center gap-2">
+
+                                            <span class="material-symbols-outlined">
+
+                                                add
+
+                                            </span>
+
+                                            Add Ticket
+
+                                        </button>
+
+                                    </div>
+
+                                    <!-- Ticket Container -->
+
+                                    <div id="ticketContainer" class="space-y-6">
+
+                                        <!-- ========================= -->
+                                        <!-- Ticket Card -->
+                                        <!-- ========================= -->
+
+                                        <div id="freeNotice"
+                                            class="hidden mb-6 rounded-xl border border-green-400/30 bg-green-500/10 p-4">
+
+                                            <p class="text-green-200">
+
+                                                This is a FREE event.
+
+                                                Ticket prices will automatically be set to KES 0.
+
+                                            </p>
+
+                                        </div>
+
+                                        <div
+                                            class="ticket-card rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-8">
+
+                                            <div class="flex justify-between items-center mb-6">
+
+                                                <h3 class="ticketTitle text-white text-xl font-semibold">
+
+                                                    Ticket #1
+
+                                                </h3>
+
+                                                <button type="button"
+                                                    class="removeTicket hidden text-red-300 hover:text-red-500">
+
+                                                    Remove
+
+                                                </button>
+
+                                            </div>
+
+                                            <div class="grid lg:grid-cols-2 gap-6">
+
+                                                <!-- Ticket Name -->
+
+                                                <div>
+
+                                                    <label class="block text-white mb-2">
+
+                                                        Ticket Name
+
+                                                    </label>
+
+                                                    <input type="text" name="ticket_name[]" placeholder="VIP Pass"
+                                                        class="ticket-name w-full rounded-xl bg-white/10 border border-white/20 px-5 py-4 text-white">
+
+                                                </div>
+
+                                                <!-- Price -->
+
+                                                <div>
+
+                                                    <label class="block text-white mb-2">
+
+                                                        Price (KES)
+
+                                                    </label>
+
+                                                    <div class="flex">
+
+                                                        <span
+                                                            class="px-4 flex items-center bg-white/20 border border-white/20 rounded-l-xl text-white">
+
+                                                            KES
+
+                                                        </span>
+
+                                                        <input type="number" min="0" step="0.01" name="ticket_price[]"
+                                                            placeholder="5000"
+                                                            class="ticket-price w-full rounded-r-xl bg-white/10 border border-l-0 border-white/20 px-5 py-4 text-white">
+
+                                                    </div>
+
+                                                    <p class="ticket-price-note hidden mt-2 text-sm text-cyan-200">
+
+                                                        Price is fixed at KES 0 because this is a free event.
+
+                                                    </p>
+
+                                                </div> <!-- Capacity -->
+
+                                                <div>
+
+                                                    <label class="block text-white mb-2">
+
+                                                        Maximum Attendees
+
+                                                    </label>
+
+                                                    <input type="number" min="1" name="ticket_capacity[]"
+                                                        placeholder="150"
+                                                        class="ticket-capacity w-full rounded-xl bg-white/10 border border-white/20 px-5 py-4 text-white">
+
+                                                </div>
+
+
+
+                                                <!-- Description -->
+
+                                                <div class="lg:col-span-2">
+
+                                                    <label class="block text-white mb-2">
+
+                                                        Description
+
+                                                    </label>
+
+                                                    <textarea rows="2" name="ticket_description[]"
+                                                        placeholder="Describe this ticket..."
+                                                        class="w-full rounded-xl bg-white/10 border border-white/20 px-5 py-4 text-white"></textarea>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Summary -->
+
+                                    <div class="mt-8 rounded-2xl bg-cyan-500/10 border border-cyan-400/20 p-6">
+
+                                        <div class="grid grid-cols-3 text-center">
+
+                                            <div>
+
+                                                <p class="text-cyan-200">
+
+                                                    Ticket Types
+
+                                                </p>
+
+                                                <h2 id="ticketCount" class="text-3xl font-bold text-white mt-2">
+
+                                                    1
+
+                                                </h2>
+
+                                            </div>
+
+                                            <div>
+
+                                                <p class="text-cyan-200">
+
+                                                    Total Capacity
+
+                                                </p>
+
+                                                <h2 id="capacityCount" class="text-3xl font-bold text-white mt-2">
+
+                                                    0
+
+                                                </h2>
+
+                                            </div>
+
+                                            <div>
+
+                                                <p class="text-cyan-200">
+
+                                                    Estimated Revenue
+
+                                                </p>
+
+                                                <h2 id="estimatedRevenue" class="text-3xl font-bold text-white mt-2">
+
+                                                    KES 0
+
+                                                </h2>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                        <!-- Step 3 goes here -->
+
+
+                        <!-- ====================================== -->
+                        <!-- STEP 3 -->
+                        <!-- ====================================== -->
+
+                        <section id="step3" class="wizard-step">
+
+                            <div
+                                class="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-emerald-900 via-slate-900 to-blue-900 shadow-2xl">
+
+                                <!-- Decorative Blur -->
+                                <div
+                                    class="absolute -top-24 -left-20 w-80 h-80 bg-emerald-400/20 blur-3xl rounded-full">
+                                </div>
+
+                                <div class="absolute bottom-0 right-0 w-80 h-80 bg-cyan-400/20 blur-3xl rounded-full">
+                                </div>
+
+                                <div class="relative p-10">
+
+                                    <!-- Heading -->
+
+                                    <div class="mb-10">
+
+                                        <h2 class="text-3xl font-bold text-white">
+
+                                            Payment Methods
+
+                                        </h2>
+
+                                        <p class="text-emerald-100 mt-2">
+
+                                            Select how attendees will pay for this event.
+
+                                        </p>
+
+                                    </div>
+
+                                    <!-- FREE EVENT NOTICE -->
+
+                                    <div id="freeEventNotice"
+                                        class="hidden mb-8 rounded-2xl border border-green-400/30 bg-green-500/10 p-6">
+
+                                        <div class="flex gap-4">
+
+                                            <span class="material-symbols-outlined text-green-300 text-4xl">
+
+                                                check_circle
+
+                                            </span>
+
+                                            <div>
+
+                                                <h3 class="text-white font-semibold text-xl">
+
+                                                    Free Event
+
+                                                </h3>
+
+                                                <p class="text-green-200 mt-2">
+
+                                                    Since this event is free, attendees will not be required
+                                                    to make any payment.
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- PAYMENT METHODS -->
+
+                                    <h3 class="text-xl font-semibold text-white mb-5">
+
+                                        Available Payment Methods
+
+                                    </h3>
+
+                                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                                        <!-- MPESA -->
+                                        <p class="text-white">
+                                            Payment methods found: {{ payment_methods|length }}
+                                        </p>
+
+                                        {% for method in payment_methods %}
+                                        <label
+                                            class="payment-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 hover:border-emerald-400 transition">
+
+                                            <input type="checkbox" class="hidden payment-checkbox"
+                                                value="{{ method.id }}" name="payment_methods[]">
+
+                                            <span class="material-symbols-outlined text-5xl text-green-300">
+
+                                                phone_android
+
+                                            </span>
+
+                                            <h4 class="text-white font-semibold text-xl mt-4">
+
+                                                {{ method.name }}
+
+                                            </h4>
+
+                                            <p class="text-blue-100 mt-2 text-sm">
+
+                                                Safaricom Mobile Money
+
+                                            </p>
+
+                                        </label>
+                                        {% endfor %}
+
+                                        <!-- Airtel -->
+
+                                        <label
+                                            class="payment-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 hover:border-red-400 transition">
+
+                                            <input type="checkbox" class="hidden payment-checkbox" value="airtel"
+                                                name="payment_methods[]">
+
+                                            <span class="material-symbols-outlined text-5xl text-red-300">
+
+                                                smartphone
+
+                                            </span>
+
+                                            <h4 class="text-white font-semibold text-xl mt-4">
+
+                                                Airtel Money
+
+                                            </h4>
+
+                                            <p class="text-blue-100 mt-2 text-sm">
+
+                                                Airtel Mobile Money
+
+                                            </p>
+
+                                        </label>
+
+                                        <!-- Card -->
+
+                                        <label
+                                            class="payment-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 hover:border-cyan-400 transition">
+
+                                            <input type="checkbox" class="hidden payment-checkbox" value="card"
+                                                name="payment_methods[]">
+
+                                            <span class="material-symbols-outlined text-5xl text-cyan-300">
+
+                                                credit_card
+
+                                            </span>
+
+                                            <h4 class="text-white font-semibold text-xl mt-4">
+
+                                                Visa / Mastercard
+
+                                            </h4>
+
+                                            <p class="text-blue-100 mt-2 text-sm">
+
+                                                Debit & Credit Cards
+
+                                            </p>
+
+                                        </label>
+
+                                        <!-- Bank -->
+
+                                        <label
+                                            class="payment-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 hover:border-yellow-400 transition">
+
+                                            <input type="checkbox" class="hidden payment-checkbox" value="bank"
+                                                name="payment_methods[]">
+
+                                            <span class="material-symbols-outlined text-5xl text-yellow-300">
+
+                                                account_balance
+
+                                            </span>
+
+                                            <h4 class="text-white font-semibold text-xl mt-4">
+
+                                                Bank Transfer
+
+                                            </h4>
+
+                                            <p class="text-blue-100 mt-2 text-sm">
+
+                                                Direct Bank Deposit
+
+                                            </p>
+
+                                        </label>
+
+                                        <!-- PayPal -->
+
+                                        <label
+                                            class="payment-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 hover:border-blue-400 transition">
+
+                                            <input type="checkbox" class="hidden payment-checkbox" value="paypal"
+                                                name="payment_methods[]">
+
+                                            <span class="material-symbols-outlined text-5xl text-blue-300">
+
+                                                payments
+
+                                            </span>
+
+                                            <h4 class="text-white font-semibold text-xl mt-4">
+
+                                                PayPal
+
+                                            </h4>
+
+                                            <p class="text-blue-100 mt-2 text-sm">
+
+                                                International Payments
+
+                                            </p>
+
+                                        </label>
+
+                                        <!-- Cash -->
+
+                                        <label
+                                            class="payment-card cursor-pointer rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 hover:border-purple-400 transition">
+
+                                            <input type="checkbox" class="hidden payment-checkbox" value="cash"
+                                                name="payment_methods[]">
+
+                                            <span class="material-symbols-outlined text-5xl text-purple-300">
+
+                                                payments
+
+                                            </span>
+
+                                            <h4 class="text-white font-semibold text-xl mt-4">
+
+                                                Cash
+
+                                            </h4>
+
+                                            <p class="text-blue-100 mt-2 text-sm">
+
+                                                Pay at the Venue
+
+                                            </p>
+
+                                        </label>
+
+                                    </div>
+
+                                    <!-- PAYMENT INSTRUCTIONS -->
+
+                                    <div class="mt-10">
+
+                                        <label class="block text-white font-semibold mb-3">
+
+                                            Payment Instructions
+
+                                        </label>
+
+                                        <textarea rows="5" name="payment_instructions" placeholder="Example:
+
+Pay via MPESA
+
+Paybill: 123456
+
+Account: Event Name
+
+Upload your payment confirmation after payment."
+                                            class="w-full rounded-2xl bg-white/10 border border-white/20 px-6 py-5 text-white placeholder:text-gray-300"></textarea>
+
+                                    </div>
+
+                                    <!-- SUMMARY -->
+
+                                    <div class="mt-10 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-8">
+
+                                        <div class="grid grid-cols-3 text-center">
+
+                                            <div>
+
+                                                <p class="text-emerald-200">
+
+                                                    Payment Methods
+
+                                                </p>
+
+                                                <h2 id="paymentMethodCount" class="text-3xl font-bold text-white mt-2">
+
+                                                    0
+
+                                                </h2>
+
+                                            </div>
+
+                                            <div>
+
+                                                <p class="text-emerald-200">
+
+                                                    Registration Type
+
+                                                </p>
+
+                                                <h2 id="registrationTypeSummary"
+                                                    class="text-3xl font-bold text-white mt-2">
+
+                                                    FREE
+
+                                                </h2>
+
+                                            </div>
+
+                                            <div>
+
+                                                <p class="text-emerald-200">
+
+                                                    Estimated Revenue
+
+                                                </p>
+
+                                                <h2 id="estimatedRevenue" class="text-3xl font-bold text-white mt-2">
+
+                                                    KES 0
+
+                                                </h2>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                        <section id="step4" class="wizard-step">
+
+                            <div
+                                class="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-slate-900 via-indigo-900 to-blue-900 shadow-2xl">
+
+                                <div class="absolute -top-24 right-0 w-72 h-72 bg-indigo-500/20 blur-3xl rounded-full">
+                                </div>
+
+                                <div class="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full">
+                                </div>
+
+                                <div class="relative p-10">
+
+                                    <!-- ====================================== -->
+                                    <!-- REVIEW SUMMARY -->
+                                    <!-- ====================================== -->
+
+                                    <div
+                                        class="mt-10 rounded-2xl border border-cyan-400/20 bg-white/10 backdrop-blur-xl p-8">
+
+                                        <div class="flex items-center gap-3 mb-8">
+
+                                            <span class="material-symbols-outlined text-cyan-300 text-4xl">
+                                                fact_check
+                                            </span>
+
+                                            <div>
+
+                                                <h3 class="text-2xl font-bold text-white">
+
+                                                    Review Event
+
+                                                </h3>
+
+                                                <p class="text-cyan-100 mt-1">
+
+                                                    Please review your event before publishing.
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Event Information -->
+
+                                        <div class="grid lg:grid-cols-2 gap-6">
+
+                                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+
+                                                <p class="text-slate-300 text-sm">
+
+                                                    Event Title
+
+                                                </p>
+
+                                                <h4 id="summaryTitle" class="text-white text-xl font-semibold mt-2">
+
+                                                    —
+
+                                                </h4>
+
+                                            </div>
+
+                                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+
+                                                <p class="text-slate-300 text-sm">
+
+                                                    Event Type
+
+                                                </p>
+
+                                                <h4 id="summaryEventType" class="text-white text-xl font-semibold mt-2">
+
+                                                    —
+
+                                                </h4>
+
+                                            </div>
+
+                                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+
+                                                <p class="text-slate-300 text-sm">
+
+                                                    Venue
+
+                                                </p>
+
+                                                <h4 id="summaryVenue" class="text-white text-xl font-semibold mt-2">
+
+                                                    —
+
+                                                </h4>
+
+                                            </div>
+
+                                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+
+                                                <p class="text-slate-300 text-sm">
+
+                                                    Registration Type
+
+                                                </p>
+
+                                                <h4 id="summaryRegistration"
+                                                    class="text-white text-xl font-semibold mt-2">
+
+                                                    FREE
+
+                                                </h4>
+
+                                            </div>
+
+                                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+
+                                                <p class="text-slate-300 text-sm">
+
+                                                    Event Dates
+
+                                                </p>
+
+                                                <h4 id="summaryDates" class="text-white font-semibold mt-2">
+
+                                                    —
+
+                                                </h4>
+
+                                            </div>
+
+                                            <div class="rounded-xl bg-white/5 border border-white/10 p-5">
+
+                                                <p class="text-slate-300 text-sm">
+
+                                                    Registration Period
+
+                                                </p>
+
+                                                <h4 id="summaryRegistrationDates" class="text-white font-semibold mt-2">
+
+                                                    —
+
+                                                </h4>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Tickets -->
+
+                                        <div class="mt-10">
+
+                                            <h4 class="text-xl font-semibold text-white mb-5">
+
+                                                Ticket Types
+
+                                            </h4>
+
+                                            <div class="overflow-hidden rounded-xl border border-white/10">
+
+                                                <table class="w-full">
+
+                                                    <thead class="bg-white/10">
+
+                                                        <tr>
+
+                                                            <th class="text-left px-5 py-4 text-cyan-200">
+
+                                                                Ticket
+
+                                                            </th>
+
+                                                            <th class="text-center px-5 py-4 text-cyan-200">
+
+                                                                Price
+
+                                                            </th>
+
+                                                            <th class="text-center px-5 py-4 text-cyan-200">
+
+                                                                Capacity
+
+                                                            </th>
+
+                                                        </tr>
+
+                                                    </thead>
+
+                                                    <tbody id="summaryTicketTable" class="divide-y divide-white/10">
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Payment Methods -->
+
+                                        <div class="mt-10">
+
+                                            <h4 class="text-xl font-semibold text-white mb-5">
+
+                                                Payment Methods
+
+                                            </h4>
+
+                                            <div id="summaryPayments" class="flex flex-wrap gap-3">
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Review Statistics -->
+
+                                        <div class="mt-10">
+
+                                            <h4 class="text-xl font-semibold text-white mb-5">
+
+                                                Event Statistics
+
+                                            </h4>
+
+                                            <div class="grid md:grid-cols-3 gap-6">
+
+                                                <!-- Ticket Types -->
+
+                                                <div
+                                                    class="rounded-2xl bg-cyan-500/10 border border-cyan-400/20 p-6 text-center">
+
+                                                    <p class="text-cyan-200">
+
+                                                        Ticket Types
+
+                                                    </p>
+
+                                                    <h2 id="summaryTicketCount"
+                                                        class="text-3xl font-bold text-white mt-2">
+
+                                                        0
+
+                                                    </h2>
+
+                                                </div>
+
+                                                <!-- Capacity -->
+
+                                                <div
+                                                    class="rounded-2xl bg-indigo-500/10 border border-indigo-400/20 p-6 text-center">
+
+                                                    <p class="text-indigo-200">
+
+                                                        Total Capacity
+
+                                                    </p>
+
+                                                    <h2 id="summaryCapacity" class="text-3xl font-bold text-white mt-2">
+
+                                                        0
+
+                                                    </h2>
+
+                                                </div>
+
+                                                <!-- Revenue -->
+
+                                                <div
+                                                    class="rounded-2xl bg-green-500/10 border border-green-400/20 p-6 text-center">
+
+                                                    <p class="text-green-200">
+
+                                                        Estimated Revenue
+
+                                                    </p>
+
+                                                    <h2 id="summaryRevenue" class="text-3xl font-bold text-white mt-2">
+
+                                                        FREE
+
+                                                    </h2>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </section>
+
+
+
+
+
+                        <!-- Navigation -->
+
+                        <div class="flex justify-between mt-10">
+
+                            <button type="button" id="previousBtn" class="hidden border px-8 py-3 rounded-lg">
+
+                                Previous
+
+                            </button>
+
+                            <button type="button" id="nextBtn"
+                                class="ml-auto bg-indigo-600 text-white px-10 py-3 rounded-lg">
+
+                                Next
+
+                            </button>
+
+                        </div>
+                    </form>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+    <script src="{% static 'js/create_event_script.js' %}"></script>
+
+</body>
+
+</html>

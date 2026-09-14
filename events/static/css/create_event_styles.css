@@ -1,0 +1,101 @@
+body {
+            font-family: Inter, sans-serif;
+            background: #f8fafc;
+        }
+
+        .wizard-step {
+            display: none;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        .sidebar-link {
+            @apply flex items-center gap-3 px-4 py-3 rounded-lg;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+
+        .ticket-card {
+
+            transition: .35s;
+
+        }
+
+        .ticket-card:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 20px 45px rgba(0, 0, 0, .25);
+
+        }
+
+        .ticket-card.new-ticket {
+
+            animation: ticketPop .45s ease;
+
+        }
+
+        @keyframes ticketPop {
+
+            0% {
+
+                opacity: 0;
+                transform: translateY(40px) scale(.95);
+
+            }
+
+            100% {
+
+                opacity: 1;
+                transform: none;
+
+            }
+
+        }
+
+        .glassInput {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .20);
+            background: rgba(255, 255, 255, .15);
+            color: #fff;
+            backdrop-filter: blur(12px);
+            transition: .25s;
+        }
+
+        .glassInput::placeholder {
+            color: rgba(255, 255, 255, .60);
+        }
+
+        .glassInput:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255, 255, 255, .25);
+        }
+
+        .ticket-card {
+            animation: fadeUp .35s ease;
+        }
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }

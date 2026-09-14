@@ -10,6 +10,8 @@ from django.core.exceptions import ValidationError
 
 from django.conf import settings
 
+from organisations.models import Organisation
+
 
 class EventType(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -19,7 +21,13 @@ class EventType(models.Model):
         default="event",
         help_text="Material Symbols icon name",
         null = True
-    )
+    ),
+
+    organisation = models.ForeignKey(
+        Organisation,
+        on_delete=models.PROTECT,
+        related_name='event_types'
+    ),
 
     description = models.TextField(blank=True, null=True)
 
@@ -64,10 +72,13 @@ class EventType(models.Model):
 
 class Event(models.Model):
 
+    organisation = models.ForeignKey(Organisation, on_delete = models.PROTECT, related_name='events',)
+
     ATTENDANCE_MODES=[
         ('single', 'Single Check-in'),
         ('daily', 'Daily Check-in'),
     ]
+
 
     uuid = models.UUIDField(
         default=uuid.uuid4,
@@ -333,14 +344,7 @@ class Registration(models.Model):
         max_length=100,
         blank=True,
         null=True
-    )
-
-    signature = models.TextField(
-        blank=True,
-        null=True
-    )
-
-
+    ),
 
     # Snapshot of the ticket price at the time the attendee registered.
     #
@@ -349,7 +353,7 @@ class Registration(models.Model):
         max_digits=10,
         decimal_places=2,
         default=0
-    )
+    ),
 
 
     token = models.UUIDField(
@@ -658,6 +662,10 @@ class CheckIn(models.Model):
         blank=True,
         null=True
     )
+    signature = models.TextField(
+            blank=True,
+            null=True
+        )
     attendance_date=models.DateField(
         auto_now_add=True
     )

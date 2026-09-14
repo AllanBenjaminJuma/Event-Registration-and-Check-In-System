@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$-ymxrr%-w0koupyp5&uc@-s5#6%m+!wr3!b1@-i*5^@-i*e(h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['testserver', '127.0.0.1']
 
 
 # Application definition
@@ -39,8 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'organisations',
     'events',
+    'accounts',
+    'email_configuration',
 ]
+
+AUTH_USER_MODEL = 'accounts.User'  # Specifies the custom user model used to log in
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,3 +126,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Session expires after 30 minutes of inactivity.
+# 100000 seconds = 27 hours
+SESSION_COOKIE_AGE = 100000
+
+# End the session when the browser is closed.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Invalid Invitation</title>
+</head>
+
+<body>
+
+    <h1>Invitation Not Available</h1>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+
+    <p>
+        Please contact the administrator if you believe you should have
+        received a valid invitation.
+    </p>
+
+</body>
+
+</html>

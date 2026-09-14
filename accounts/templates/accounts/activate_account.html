@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Activate Account</title>
+</head>
+
+<body>
+
+    <h1>Activate Your Account</h1>
+
+    <p>
+        Welcome {{ invitation.user.first_name }}.
+    </p>
+
+    <p>
+        Your account is ready to be activated.
+    </p>
+
+    <p>
+        Account:
+        {{ invitation.user.email }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label for="password">
+            Create Password
+        </label>
+
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirm_password">
+            Confirm Password
+        </label>
+
+        <input type="password" id="confirm_password" name="confirm_password" required>
+
+        <button type="submit">
+            Activate Account
+        </button>
+
+    </form>
+
+</body>
+
+</html>
