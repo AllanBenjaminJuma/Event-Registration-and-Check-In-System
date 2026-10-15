@@ -22,35 +22,65 @@ from .services import generate_registration_qr_code
 # All views to create and manage events are in the dashboard app.
 
 # display the dashboard page
+# Display the dashboard page
 @never_cache
 @login_required
 def dashboard(request):
 
-    events = Event.objects.all()
+    # Only retrieve events belonging to the logged-in user's organisation.
+    events = Event.objects.filter(
+        organisation=request.user.organisation
+    )
 
-    event_types = EventType.objects.all().order_by('name') # to list the event types when crating a new event
+    # Only show event types belonging to the logged-in user's organisation.
+    event_types = EventType.objects.filter(
+        organisation=request.user.organisation
+    ).order_by('name')
+
+    # Only count active events belonging to this organisation.
+    active_events = events.filter(
+        start_date__gte=timezone.now()
+    ).order_by('start_date')
 
     total_events = events.count()
 
-    active_events = Event.objects.filter(start_date__gte=timezone.now()).order_by('start_date')
-
     total_active_events = active_events.count()
 
-    total_checkins = Registration.objects.filter(checkins=True).count()
+    # Count registrations belonging to this organisation's events.
+    total_registrations = Registration.objects.filter(
+        event__organisation=request.user.organisation
+    ).count()
 
-    total_registrations = Registration.objects.count()
+    # Count check-ins belonging to this organisation's events.
+    total_checkins = Registration.objects.filter(
+        event__organisation=request.user.organisation,
+        checkins__isnull=False
+    ).distinct().count()
 
     attendance_rate = 0
 
     if total_registrations > 0:
-        attendance_rate = (total_checkins / total_registrations) * 100
-    
+        attendance_rate = (
+            total_checkins / total_registrations
+        ) * 100
+
     no_shows = total_registrations - total_checkins
 
+    return render(
+        request,
+        'admin/dashboard.html',
+        {
+            'total_events': total_events,
+            'active_events': active_events,
+            'total_active_events': total_active_events,
+            'total_checkins': total_checkins,
+            'total_registrations': total_registrations,
+            'attendance_rate': attendance_rate,
+            'no_shows': no_shows,
+            'event_types': event_types
+        }
+    )
 
-
-
-    return render(request, 'admin/dashboard.html',{'total_events': total_events, 'active_events': active_events, 'total_active_events': total_active_events, 'total_checkins': total_checkins, 'total_registrations': total_registrations, 'attendance_rate': attendance_rate, 'no_shows': no_shows, 'event_types': event_types})
 
 @never_cache
 @login_required
@@ -58,7 +88,8 @@ def dashboard(request):
 
 def event_types(request):
     
-    event_types = EventType.objects.all()
+    # Get only event types belonging to the logged-in user's organisation.
+    event_types = EventType.objects.filter(organisation=request.user.organisation)
 
     event_types_count = event_types.count()
 
@@ -68,7 +99,7 @@ def event_types(request):
 
     most_used_event_type = EventType.objects.annotate(event_count=Count('events')).order_by('-event_count').first()
 
-    total_events_count = Event.objects.count()
+    total_events_count = Event.objects.filter(organisation=request.user.organisation).count()
 
     return render(request, 'events/event_types.html', {'event_types': event_types, 'event_type_per_event': event_type_per_event, 'event_types_count': event_types_count, 'total_events_count': total_events_count, 'most_used_event_type': most_used_event_type})
 
@@ -83,11 +114,13 @@ def create_event_type(request):
         name = request.POST.get('name')
         icon = request.POST.get('icon')
         description = request.POST.get('description')
+        
 
         EventType.objects.create(
             name=name,
             icon=icon,
-            description=description
+            description=description,
+            organisation=request.user.organisation
         )
 
     return redirect('event_types') 
@@ -103,7 +136,8 @@ def edit_event_type(request):
 
         event_type = get_object_or_404(
             EventType,
-            id=event_type_id
+            id=event_type_id,
+            organisation=request.user.organisation #auto assign the user logged in the organisation who owns the event
         )
 
         event_type.name = request.POST.get('name')
@@ -124,7 +158,7 @@ def edit_event_type(request):
 @permission_required('events.delete_eventtype', raise_exception=True)
 def delete_event_type(request, id):
 
-    event_type = get_object_or_404(EventType, id=id)
+    event_type = get_object_or_404(EventType, id=id, organisation=request.user.organisation)
 
     event_count = event_type.events.count()
 
@@ -152,6 +186,8 @@ def delete_event_type(request, id):
 def create_new_event(request):
 
     payment_methods = PaymentMethod.objects.filter(is_active=True)
+
+    event_types = EventType.objects.filter(organisation=request.user.organisation).order_by('name')
 
     return render(request, 'events/create_event.html', {'event_types': EventType.objects.all(), 'payment_methods': payment_methods})
 
@@ -214,7 +250,8 @@ def create_event(request):
             # from the database.
             event_type = get_object_or_404(
                 EventType,
-                pk=request.POST.get("event_type")
+                pk=request.POST.get("event_type"),
+                organisation=request.user.organisation
             )
 
 

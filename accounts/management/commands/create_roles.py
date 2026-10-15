@@ -15,8 +15,16 @@ class Command(BaseCommand):
         # Define the roles and the permissions each role should receive
         roles = {
 
+            "Platform Administrator":{
+                "permissions": [],
+            },
+
+            "Organisation Administrator":{
+                "permissions": "organisation_all",
+            },
+
             "System Administrator": {
-                "permissions": "all",
+                "permissions": "events_all",
             },
 
             "Event Manager": {
@@ -105,7 +113,13 @@ class Command(BaseCommand):
                 )
 
             # System Administrator receives every Events permission
-            if role_data["permissions"] == "all":
+            if role_data["permissions"] == "organisation_all":
+
+                permissions = Permission.objects.filter(
+                    content_type__app_label__in=["events", "accounts"]
+                )
+
+            elif role_data["permissions"] =="events_all":
 
                 permissions = Permission.objects.filter(
                     content_type__app_label="events"
@@ -115,7 +129,7 @@ class Command(BaseCommand):
 
                 # Get only the permissions assigned to this particular role
                 permissions = Permission.objects.filter(
-                    content_type__app_label="events",
+                    content_type__app_label__in="events",
                     codename__in=role_data["permissions"],
                 )
 

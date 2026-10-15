@@ -64,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects  = UserManager()
 
-    organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT,related_name='users') # allow users to be associated with an organisation
+    organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT,related_name='users', null=True, blank=True) # allow users to be associated with an organisation
 
     USERNAME_FIELD = 'email' # email will be used as the log in identity
 

@@ -1,3 +1,7 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 """
 Django settings for config project.
 
@@ -127,7 +131,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.zoho.com')
+EMAIL_PORT = os.getenv('EMAIL_PORT', '587')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS','True').lower() == 'true'
+EMAIL_USE_SSL = False
+
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'webmaster@localhost')
 
 # Session expires after 30 minutes of inactivity.
 # 100000 seconds = 27 hours
